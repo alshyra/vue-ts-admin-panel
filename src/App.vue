@@ -1,26 +1,45 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+    <div class="ui fixed inverted menu">
+      <div class="ui container">
+        <router-link class="header item" to="/">Home</router-link>
+        <router-link class="item" to="/users">Users</router-link>
+      </div>
     </div>
     <router-view/>
   </div>
 </template>
 
+<script lang="ts">
+import Vue from 'vue';
+export default Vue.extend({
+  data() {
+    return {
+      isConnected: false,
+    };
+  },
+});
+</script>
+
 <style lang="scss">
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+}
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
 }
 #nav {
+  background-color: #2c3e50;
   padding: 30px;
   a {
     font-weight: bold;
-    color: #2c3e50;
+    color: grey;
     &.router-link-exact-active {
       color: #42b983;
     }
