@@ -36,8 +36,8 @@ import Vuex from 'vuex';
   components: {},
 })
 export default class Login extends Vue {
-  public login: string = 'antoine.savajols@elosi.com';
-  public password: string = 'XeeSyC4';
+  public login: string = 'antoine.savajols@gmail.com';
+  public password: string = 'Alshyra123';
   public error: string = '';
   constructor() {
     super();
@@ -46,7 +46,7 @@ export default class Login extends Vue {
     try {
       const response = await jwtStore.loginUser(this.login, this.password);
       this.error = '';
-      this.$router.push('/users');
+      this.$router.push('/sites');
     } catch (error) {
       this.error = 'Bad Credentials';
     }

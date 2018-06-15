@@ -4,14 +4,14 @@
 
     <div class="ui container grid">
       <div class="wide row">
-        <div class="four wide column">Name:</div>
-        <div class="four wide column">Username:</div>
-        <div class="four wide column">Email:</div>
+        <div class="five wide column noWrap">Id:</div>
+        <div class="five wide column">Email:</div>
+        <div class="five wide column">Role:</div>
       </div>
       <div class="wide row alternback" v-for="user in users" :key="user.email">
-        <div class="four wide column"> {{user.name}}</div>
-        <div class="four wide column"> {{user.username}}</div>
-        <div class="four wide column"> {{user.email}}</div>
+        <div class="five wide column"> {{user.id}}</div>
+        <div class="five wide column"> {{user.email}}</div>
+        <div class="five wide column"> {{user.role}}</div>
       </div>
     </div>
   </div>
@@ -37,14 +37,16 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import Axios from 'axios';
+import UsersStore from '@/stores/UsersStore';
 
 @Component
 export default class Users extends Vue {
   public users: Array<{ name: string }> = [];
-  public created() {
-    Axios.get('https://jsonplaceholder.typicode.com/users').then((response) => {
-      this.users = response.data;
-    });
+  public async created() {
+    this.users = await UsersStore.getUsers(this.$route.params.siteId);
+  }
+  public mounted() {
+    this.users = this.users.sort((a, b) => a.name > b.name ? 1 : -1);
   }
 }
 </script>

@@ -1,8 +1,5 @@
 import Axios from 'axios';
-import Vue from 'vue';
-import Vuex from 'vuex';
 
-Vue.use(Vuex);
 class JwtStore {
   public jwtHeader: string = '';
   public saveJwt(jwtHeader: string) {

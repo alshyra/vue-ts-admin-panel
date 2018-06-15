@@ -1,9 +1,9 @@
-import Vue from 'vue';
-import Router, { Route, RouterOptions, RouteConfig } from 'vue-router';
-import Login from './components/Login.vue';
-import Users from './components/Users.vue';
-import Sites from './components/Sites.vue';
 import JwtStore from '@/stores/JwtStore';
+import Vue from 'vue';
+import Router from 'vue-router';
+import Login from './components/Login.vue';
+import Sites from './components/Sites.vue';
+import Users from './components/Users.vue';
 
 Vue.use(Router);
 export default new Router({
@@ -17,11 +17,11 @@ export default new Router({
           next();
           return;
         }
-        next('/users');
+        next('/sites');
       },
     },
     {
-      path: '/users',
+      path: '/users/:siteId',
       name: 'users',
       component: Users,
       beforeEnter: (to, from, next) => {
