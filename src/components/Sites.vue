@@ -11,7 +11,7 @@
         <div class="wide row alternback" v-for="site in sites" :key="site.id">
             <div class="eight wide column">{{site.siteName}}</div>
             <div class="six wide column noWrap">{{site.id}}</div>
-            <router-link class="ui button" :to="{ name: 'users', params: { siteId: site.id }}" :tag="button">Add</router-link>
+            <router-link class="ui button" :to="{ name: 'users', params: { siteId: site.id }}">Add</router-link>
         </div>
     </div>
     </div>
@@ -40,14 +40,11 @@ export default class Sites extends Vue {
   public created() {
     Axios.get(`https://api-itg.weaselspark.com/sites/all`).then((response) => {
       console.log(response);
-      this.sites = response.data;
+      this.sites = response.data.sort((a: ISite, b: ISite) => (a.siteName > b.siteName ? 1 : -1));
     });
   }
   public add(site: ISite) {
     this.$router.push(`users/${site.id}`);
-  }
-  public mounted() {
-    this.sites = this.sites.sort((a, b) => (a.siteName > b.siteName ? 1 : -1));
   }
 }
 </script>

@@ -1,7 +1,7 @@
 <template>
   <div class="users ui main container text">
     <h1>This is users page</h1>
-
+    <user-detail></user-detail>
     <div class="ui container grid">
       <div class="wide row">
         <div class="five wide column noWrap">Id:</div>
@@ -37,16 +37,17 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import Axios from 'axios';
-import UsersStore from '@/stores/UsersStore';
+import UsersStore, { IUser } from '@/stores/UsersStore';
+import UserDetail from '@/components/UserDetail.vue';
 
-@Component
+@Component({
+  components: { UserDetail },
+})
 export default class Users extends Vue {
-  public users: Array<{ name: string }> = [];
+  public users: IUser[] = [];
   public async created() {
     this.users = await UsersStore.getUsers(this.$route.params.siteId);
-  }
-  public mounted() {
-    this.users = this.users.sort((a, b) => a.name > b.name ? 1 : -1);
+    this.users = this.users.sort((a, b) => (a.email > b.email ? 1 : -1));
   }
 }
 </script>

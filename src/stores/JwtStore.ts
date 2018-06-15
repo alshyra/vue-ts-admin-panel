@@ -4,6 +4,7 @@ class JwtStore {
   public jwtHeader: string = '';
   public saveJwt(jwtHeader: string) {
     this.jwtHeader = jwtHeader;
+    localStorage.jwtHeader = jwtHeader;
     Axios.interceptors.request.use(
       (config) => {
         config.headers['x-auth-header'] = this.jwtHeader;
