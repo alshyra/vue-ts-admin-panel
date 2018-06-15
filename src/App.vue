@@ -2,8 +2,9 @@
   <div id="app">
     <div class="ui fixed inverted menu">
       <div class="ui container">
-        <router-link class="header item" to="/">Home</router-link>
+        <router-link class="header item" to="/login">Home</router-link>
         <router-link class="item" to="/users">Users</router-link>
+        <router-link class="item" to="/sites">Sites</router-link>
       </div>
     </div>
     <router-view/>
