@@ -11,7 +11,7 @@
         <div class="wide row alternback" v-for="site in sites" :key="site.id">
             <div class="eight wide column">{{site.siteName}}</div>
             <div class="six wide column noWrap">{{site.id}}</div>
-            <router-link class="ui button" :to="{ name: 'users', params: { siteId: site.id }}">Add</router-link>
+            <button class="ui button" @click="goToUsers(site)">Add</button>
         </div>
     </div>
     </div>
@@ -27,13 +27,8 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import SitesStore from '@/stores/SitesStore';
+import SitesStore, { ISite } from '@/stores/SitesStore';
 import Axios from 'axios';
-
-interface ISite {
-  siteName: string;
-  id: string;
-}
 
 @Component
 export default class Sites extends Vue {
@@ -45,8 +40,9 @@ export default class Sites extends Vue {
       this.sites = sites.sort((a: ISite, b: ISite) => (a.siteName > b.siteName ? 1 : -1));
     });
   }
-  public add(site: ISite) {
-    this.$router.push(`users/${site.id}`);
+  public goToUsers(site: ISite) {
+    SitesStore.site = site;
+    this.$router.push({ name: 'users', params: { siteId: site.id } });
   }
 }
 </script>

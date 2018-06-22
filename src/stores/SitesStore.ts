@@ -1,9 +1,19 @@
 import Axios, { AxiosResponse } from 'axios';
 
+export interface ISite {
+  siteName: string;
+  id: string;
+}
+
 class SitesStore {
+  public site: ISite;
   public sites: ISite[];
-  constructor(sites: ISite[]) {
-    this.sites = sites;
+  constructor() {
+    this.sites = [];
+    this.site = {
+      id: '',
+      siteName: '',
+    };
   }
   public async getSites() {
     if (this.sites && this.sites.length) {
@@ -15,4 +25,4 @@ class SitesStore {
     }
   }
 }
-export default new SitesStore([]);
+export default new SitesStore();

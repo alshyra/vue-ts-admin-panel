@@ -1,6 +1,6 @@
 <template>
   <div class="users ui main container text">
-    <h1>Users</h1>
+    <h1>Users of {{ site.siteName }}</h1>
     <transition name="fade">
       <div class="ui centered loader active" v-if="isLoading"></div>
       <div v-if="!isLoading">
@@ -44,6 +44,7 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 import Axios from 'axios';
 import UsersStore, { IUser } from '@/stores/UsersStore';
 import UserDetail from '@/components/UserDetail.vue';
+import SitesStore, { ISite } from '@/stores/SitesStore';
 
 @Component({
   components: { UserDetail },
@@ -51,10 +52,15 @@ import UserDetail from '@/components/UserDetail.vue';
 export default class Users extends Vue {
   public isLoading = true;
   public users: IUser[] = [];
+  public site: ISite = {
+    siteName: '',
+    id: '',
+  };
   public async created() {
     this.users = await UsersStore.getUsers(this.$route.params.siteId);
     this.isLoading = false;
     this.users = this.users.sort((a, b) => (a.email > b.email ? 1 : -1));
+    this.site = SitesStore.site;
   }
 }
 </script>
