@@ -1,8 +1,8 @@
 <template>
     <div class="users ui main container text">
     <h1>This is sites page</h1>
-
-    <div class="ui container grid">
+    <div v-if="isLoading"  class="ui active centered loader"></div>
+    <div v-if="!isLoading" class="ui container grid">
         <div class="wide row">
             <div class="eight wide column">Name</div>
             <div class="six wide column">Id</div>
@@ -37,9 +37,10 @@ interface ISite {
 @Component
 export default class Sites extends Vue {
   public sites: ISite[] = [];
+  public isLoading = true;
   public created() {
     Axios.get(`https://api-itg.weaselspark.com/sites/all`).then((response) => {
-      console.log(response);
+      this.isLoading = false;
       this.sites = response.data.sort((a: ISite, b: ISite) => (a.siteName > b.siteName ? 1 : -1));
     });
   }
