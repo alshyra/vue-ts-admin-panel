@@ -50,6 +50,7 @@ export default class UserDetail extends Vue {
     if (this.user) {
       await UsersStore.saveUser(this.$route.params.siteId, this.user);
       this.isLoading = false;
+      this.$emit('updateUsers');
     }
   }
 }

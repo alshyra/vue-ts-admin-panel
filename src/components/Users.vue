@@ -4,7 +4,7 @@
     <transition name="fade">
       <div class="ui centered loader active" v-if="isLoading"></div>
       <div v-if="!isLoading">
-        <user-detail></user-detail>
+        <user-detail @updateUsers="updateUsers" ></user-detail>
         <div class="ui container grid">
           <div class="wide row">
             <div class="five wide column noWrap">Id:</div>
@@ -61,6 +61,12 @@ export default class Users extends Vue {
     this.isLoading = false;
     this.users = this.users.sort((a, b) => (a.email > b.email ? 1 : -1));
     this.site = SitesStore.site;
+  }
+
+  public async updateUsers() {
+    this.isLoading = true;
+    this.users = await UsersStore.getUsers(this.$route.params.siteId);
+    this.isLoading = false;
   }
 }
 </script>
