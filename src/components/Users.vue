@@ -9,7 +9,7 @@
         <div class="five wide column">Role:</div>
       </div>
       <div class="wide row alternback" v-for="user in users" :key="user.email">
-        <div class="five wide column"> {{user.id}}</div>
+        <div class="five wide column noWrap"> {{user.id}}</div>
         <div class="five wide column"> {{user.email}}</div>
         <div class="five wide column"> {{user.role}}</div>
       </div>

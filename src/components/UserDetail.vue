@@ -1,5 +1,7 @@
 <template>
-    <form class="ui form" @submit.prevent="saveUser">
+    <div>
+    <div class="ui centered inline loader active" v-if="isLoading"></div>
+    <form class="ui form" v-if="!isLoading" @submit.prevent="saveUser">
         <div class="inline fields">
             <div class="ten wide field">
                 <label for="email">Email</label>
@@ -14,6 +16,7 @@
             <button class="ui two wide button" type="submit">Ajouter</button>
         </div>
     </form>
+    </div>
 </template>
 
 <script lang="ts">
@@ -23,15 +26,18 @@ import UsersStore, { IUser } from '@/stores/UsersStore';
 
 @Component
 export default class UserDetail extends Vue {
+  public isLoading = false;
   public user: IUser = {
     email: '',
     language: 'FR',
     role: 'ADMIN',
     signupPending: false,
   };
-  public saveUser() {
+  public async saveUser() {
+    this.isLoading = true;
     if (this.user) {
-      UsersStore.saveUser(this.$route.params.siteId, this.user);
+      await UsersStore.saveUser(this.$route.params.siteId, this.user);
+      this.isLoading = false;
     }
   }
 }
