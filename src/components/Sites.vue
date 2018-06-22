@@ -1,6 +1,6 @@
 <template>
     <div class="users ui main container text">
-    <h1>This is sites page</h1>
+    <h1>Sites</h1>
     <div v-if="isLoading"  class="ui active centered loader"></div>
     <div v-if="!isLoading" class="ui container grid">
         <div class="wide row">

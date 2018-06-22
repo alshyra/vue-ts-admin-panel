@@ -1,19 +1,24 @@
 <template>
   <div class="users ui main container text">
-    <h1>This is users page</h1>
-    <user-detail></user-detail>
-    <div class="ui container grid">
-      <div class="wide row">
-        <div class="five wide column noWrap">Id:</div>
-        <div class="five wide column">Email:</div>
-        <div class="five wide column">Role:</div>
+    <h1>Users</h1>
+    <transition name="fade">
+      <div class="ui centered loader active" v-if="isLoading"></div>
+      <div v-if="!isLoading">
+        <user-detail></user-detail>
+        <div class="ui container grid">
+          <div class="wide row">
+            <div class="five wide column noWrap">Id:</div>
+            <div class="five wide column">Email:</div>
+            <div class="five wide column">Role:</div>
+          </div>
+          <div class="wide row alternback" v-for="user in users" :key="user.email">
+            <div class="five wide column noWrap"> {{user.id}}</div>
+            <div class="five wide column"> {{user.email}}</div>
+            <div class="five wide column"> {{user.role}}</div>
+          </div>
+        </div>
       </div>
-      <div class="wide row alternback" v-for="user in users" :key="user.email">
-        <div class="five wide column noWrap"> {{user.id}}</div>
-        <div class="five wide column"> {{user.email}}</div>
-        <div class="five wide column"> {{user.role}}</div>
-      </div>
-    </div>
+    </transition>
   </div>
 </template>
 
@@ -44,9 +49,11 @@ import UserDetail from '@/components/UserDetail.vue';
   components: { UserDetail },
 })
 export default class Users extends Vue {
+  public isLoading = true;
   public users: IUser[] = [];
   public async created() {
     this.users = await UsersStore.getUsers(this.$route.params.siteId);
+    this.isLoading = false;
     this.users = this.users.sort((a, b) => (a.email > b.email ? 1 : -1));
   }
 }
