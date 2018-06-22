@@ -27,6 +27,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
+import SitesStore from '@/stores/SitesStore';
 import Axios from 'axios';
 
 interface ISite {
@@ -39,9 +40,9 @@ export default class Sites extends Vue {
   public sites: ISite[] = [];
   public isLoading = true;
   public created() {
-    Axios.get(`https://api-itg.weaselspark.com/sites/all`).then((response) => {
+    SitesStore.getSites().then((sites) => {
       this.isLoading = false;
-      this.sites = response.data.sort((a: ISite, b: ISite) => (a.siteName > b.siteName ? 1 : -1));
+      this.sites = sites.sort((a: ISite, b: ISite) => (a.siteName > b.siteName ? 1 : -1));
     });
   }
   public add(site: ISite) {

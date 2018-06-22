@@ -15,7 +15,8 @@ class UsersStore {
   }
 
   public async saveUser(index: string, userDTO: IUser) {
-    const reponse = await Axios.post(`https://api-itg.weaselspark.com/users/saveAuthorization?index=${index}&language=FR`, userDTO);
+    const reponse =
+      await Axios.post(`https://api-itg.weaselspark.com/users/saveAuthorization?index=${index}&language=FR`, userDTO);
     return reponse.data;
   }
 }
