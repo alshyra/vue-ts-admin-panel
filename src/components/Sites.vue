@@ -8,27 +8,28 @@
             <div class="ui inverted large menu top fixed">
                 <div class="header item">Sites</div>
                 <div class="right item">
-                  <div class="ui icon input">
+                  <div class="ui inverted transparent icon input">
                     <input class="inverted" v-model="search" type="text" placeholder="Search a website name">
                     <i class="search icon"></i>
                   </div>
                 </div>
             </div>
-            <div class="ui container grid">
-              <div class="wide row">
-                  <div class="eight wide column">Name</div>
-                  <div class="six wide column">Id</div>
-                  <div class="two wide column">Action</div>
-              </div>
-              <div class="wide row alternback" v-for="site in searchedSite" :key="site.id">
-                  <div class="eight wide column">{{site.siteName}}</div>
-                  <div class="six wide column noWrap">{{site.id}}</div>
-                  <button class="ui icon button" @click="goToUsers(site)">
-                    <i class="user plus icon"></i>
-                  </button>
-                  <button class="ui icon button" @click="deleteSite(site)">
-                    <i class="trash icon"></i>
-                  </button>
+            <div class="ui container segment ">
+              <div class="ui relaxed divided list">
+                <div class="item" v-for="site in searchedSite" :key="site.id">
+                    <div class="right floated content">
+                      <button class="ui icon button left attached green" @click="goToUsers(site)">
+                        <i class="user plus icon"></i>
+                      </button>
+                      <button class="ui icon button right attached red" @click="deleteSite(site)">
+                        <i class="trash icon"></i>
+                      </button>
+                    </div>
+                    <div class="content">
+                      <div class="header">{{site.siteName}}</div>
+                      <div>{{site.id}}</div>
+                    </div>
+                </div>
               </div>
             </div>
         </div>
@@ -48,7 +49,6 @@
 }
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
   opacity: 0;
-  transform: translateX(100px);
 }
 </style>
 

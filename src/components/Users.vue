@@ -7,28 +7,30 @@
       <div v-if="!isLoading">
         <div class="ui large menu top fixed inverted">
           <div class="item">
-            <button class="ui inverted action button icon" @click="back">
-              <i class="arrow left icon"></i>
+            <button class="ui inverted labeled button icon" @click="back">
+              <i class="inverted arrow left icon"></i>
+              Back
             </button>
           </div>
           <div class="header item">Users of {{ site.siteName }}</div>
           <div class="right item">
-            <button class="ui inverted action button icon" @click="deleteSite(site)">
-              <i class="trash icon"></i>
+            <button class="ui inverted action button icon red" @click="deleteSite(site)">
+              <i class="trash icon inverted red"></i>
             </button>
           </div>
         </div>
-        <div class="ui container grid">
+        <div class="ui container">
           <user-detail class="sixteen wide column" @updateUsers="updateUsers" ></user-detail>
-          <div class="wide row">
-            <div class="five wide column noWrap">Id:</div>
-            <div class="five wide column">Email:</div>
-            <div class="five wide column">Role:</div>
-          </div>
-          <div class="wide row alternback" v-for="user in users" :key="user.email">
-            <div class="five wide column noWrap"> {{user.id}}</div>
-            <div class="five wide column"> {{user.email}}</div>
-            <div class="five wide column"> {{user.role}}</div>
+          <div class="ui inverted segment">
+            <div class="ui inverted relaxed divided list">
+              <div class="item" v-if="users && users.length" v-for="user in users" :key="user.email">
+                  <div class="header">{{user.email}}</div>
+                  {{user.role}} ({{user.id}})
+              </div>
+              <div class="item" v-if="!users || !users.length">
+                <div class="header">Il n'y a pas d'utilisateurs</div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -37,7 +39,6 @@
 </template>
 
 <style lang="scss">
-
 .alternback {
   color: white;
 }
@@ -69,7 +70,7 @@ export default class Users extends Vue {
     id: '',
   };
 
-  public back(){
+  public back() {
     this.$router.back();
   }
 
