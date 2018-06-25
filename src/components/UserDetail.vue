@@ -2,19 +2,20 @@
     <div>
         <transition name="fade" mode="out-in">
             <div class="ui centered inline loader active" v-if="isLoading"></div>
+        </transition>
+        <transition name="fade" mode="out-in">
             <form class="ui form" v-if="!isLoading" @submit.prevent="saveUser">
-                <div class="inline fields">
-                    <div class="ten wide field">
-                        <label for="email">Email</label>
-                        <input type="text" name="email" v-model="user.email">
+                <div>
+                    <div class="field ui fluid input">
+                        <input placeholder="Email" type="text" name="email" v-model="user.email">
                     </div>
-                    <div class="six wide field">
+                    <div class="ui field fluid action input">
                         <select class="ui dropdown" v-model="user.role" name="role">
                             <option value="ADMIN">ADMIN</option>
                             <option value="USER">USER</option>
                         </select>
+                        <button class="ui primary right attached button" type="submit">Ajouter</button>
                     </div>
-                    <button class="ui two wide button" type="submit">Ajouter</button>
                 </div>
             </form>
         </transition>
@@ -27,7 +28,6 @@
 }
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
   opacity: 0;
-  transform: translateX(100px);
 }
 </style>
 

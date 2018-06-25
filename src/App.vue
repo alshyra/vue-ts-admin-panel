@@ -27,7 +27,7 @@ body {
     color: #adb9c5;
   }
   .margin-top{
-    margin-top: 60px;
+    padding-top: 60px;
   }
 }
 </style>
