@@ -1,4 +1,5 @@
 import Axios from 'axios';
+import EnvStore from './EnvStore';
 
 class JwtStore {
   public jwtHeader: string = '';
@@ -17,7 +18,7 @@ class JwtStore {
   }
 
   public async loginUser(email: string, password: string) {
-    const response = await Axios.post(`https://api-itg.weaselspark.com/authService/login`, {
+    const response = await Axios.post(`${EnvStore.rootUrl()}/authService/login`, {
       email,
       password,
     });

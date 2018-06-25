@@ -1,3 +1,4 @@
+import EnvStore from '@/stores/EnvStore';
 import Axios, { AxiosResponse } from 'axios';
 
 export interface ISite {
@@ -19,14 +20,14 @@ class SitesStore {
     if (this.sites && this.sites.length && !forceRefresh) {
       return Promise.resolve(this.sites);
     } else {
-      const reponse: AxiosResponse<ISite[]> = await Axios.get(`https://api-itg.weaselspark.com/sites/all`);
+      const reponse: AxiosResponse<ISite[]> = await Axios.get(`${EnvStore.rootUrl()}/sites/all`);
       this.sites = reponse.data;
       return reponse.data;
     }
   }
 
   public async deleteSite(index: string) {
-    await Axios.delete(`https://api-itg.weaselspark.com/sites?index=${index}`);
+    await Axios.delete(`${EnvStore.rootUrl()}/sites?index=${index}`);
     return true;
   }
 }
