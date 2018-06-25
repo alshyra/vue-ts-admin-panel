@@ -1,8 +1,10 @@
 <template>
-  <div class="users ui main container text">
+  <div class="users ui main container">
     <h1>Users of {{ site.siteName }}</h1>
     <transition name="fade">
       <div class="ui centered loader active" v-if="isLoading"></div>
+    </transition>
+    <transition name="fade">
       <div v-if="!isLoading">
         <user-detail @updateUsers="updateUsers" ></user-detail>
         <div class="ui container grid">
