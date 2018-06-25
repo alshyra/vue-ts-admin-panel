@@ -1,11 +1,6 @@
 <template>
   <div id="app">
-    <div class="ui fixed inverted menu">
-      <div class="ui container">
-        <router-link class="header item" to="/sites">Home</router-link>
-      </div>
-    </div>
-    <router-view/>
+    <router-view class="margin-top"/>
   </div>
 </template>
 
@@ -28,7 +23,11 @@ body {
   margin: 0;
 }
 #app {
-  color: #2c3e50;
+  .inverted {
+    color: #adb9c5;
+  }
+  .margin-top{
+    margin-top: 30px;
+  }
 }
-
 </style>

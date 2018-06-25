@@ -1,14 +1,18 @@
 <template>
-    <div class="users ui main container">
-      <h1>Sites</h1>
+    <div>
       <transition name="fade">
         <div v-if="isLoading" class="ui active centered loader"></div>
       </transition>
       <transition name="fade">
         <div v-if="!isLoading">
-            <div class="ui fluid icon input">
-              <input v-model="search" type="text" placeholder="Search a website name">
-              <i class="search icon"></i>
+            <div class="ui inverted large menu top fixed">
+                <div class="header item">Sites</div>
+                <div class="right item">
+                  <div class="ui icon input">
+                    <input class="inverted" v-model="search" type="text" placeholder="Search a website name">
+                    <i class="search icon"></i>
+                  </div>
+                </div>
             </div>
             <div class="ui container grid">
               <div class="wide row">

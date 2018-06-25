@@ -1,8 +1,7 @@
 <template>
   <div id="login-main" class="ui main container text">
     <div>
-      <h1>Cette page vous permet d'administrer WeaselSpark</h1>
-      <h3>Mais d'abord authentifie toi:</h3>
+      <h1>WeaselSpark Administration</h1>
       <form class="form ui" @submit.prevent="checkForm" >
         <div v-if="error" class="ui vertical beg segment transition visible">
           <div class="ui red header">

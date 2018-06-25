@@ -1,20 +1,20 @@
 <template>
-  <div class="users ui main container">
+  <div>
     <transition name="fade">
       <div class="ui centered loader active" v-if="isLoading"></div>
     </transition>
     <transition name="fade">
       <div v-if="!isLoading">
-        <div class="ui grid">
-          <h1 class="fourteen wide column">Users of {{ site.siteName }}</h1>
-          <div class="two wide column right floated right aligned">
-            <button class="ui button icon" @click="deleteSite(site)">
+        <div class="ui large menu top fixed inverted">
+          <div class="header item">Users of {{ site.siteName }}</div>
+          <div class="right item">
+            <button class="ui action button icon" @click="deleteSite(site)">
               <i class="trash icon"></i>
             </button>
           </div>
         </div>
-        <user-detail @updateUsers="updateUsers" ></user-detail>
         <div class="ui container grid">
+          <user-detail class="sixteen wide column" @updateUsers="updateUsers" ></user-detail>
           <div class="wide row">
             <div class="five wide column noWrap">Id:</div>
             <div class="five wide column">Email:</div>
@@ -32,9 +32,7 @@
 </template>
 
 <style lang="scss">
-.users {
-  padding-top: 50px;
-}
+
 .alternback {
   color: white;
 }
