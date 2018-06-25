@@ -15,14 +15,19 @@ class SitesStore {
       siteName: '',
     };
   }
-  public async getSites() {
-    if (this.sites && this.sites.length) {
+  public async getSites(forceRefresh?: boolean) {
+    if (this.sites && this.sites.length && !forceRefresh) {
       return Promise.resolve(this.sites);
     } else {
       const reponse: AxiosResponse<ISite[]> = await Axios.get(`https://api-itg.weaselspark.com/sites/all`);
       this.sites = reponse.data;
       return reponse.data;
     }
+  }
+
+  public async deleteSite(index: string) {
+    await Axios.delete(`https://api-itg.weaselspark.com/sites?index=${index}`);
+    return true;
   }
 }
 export default new SitesStore();
