@@ -1,12 +1,24 @@
+import axios from 'axios';
 import Vue from 'vue';
 import App from './App.vue';
+import './registerServiceWorker';
 import router from './router';
 import store from './store';
-import './registerServiceWorker';
-import axios from 'axios';
 
-Vue.config.productionTip = false;
+Vue.config.productionTip = process.env.NODE_ENV === 'production';
 Vue.prototype.$http = axios;
+
+axios.interceptors.response.use(
+  (config) => {
+    return config;
+  },
+  (err) => {
+    if (err.response.status === 401) {
+      router.push('login');
+      return Promise.reject(err);
+    }
+  },
+);
 
 new Vue({
   router,

@@ -1,11 +1,18 @@
 <template>
   <div class="users ui main container">
-    <h1>Users of {{ site.siteName }}</h1>
     <transition name="fade">
       <div class="ui centered loader active" v-if="isLoading"></div>
     </transition>
     <transition name="fade">
       <div v-if="!isLoading">
+        <div class="ui grid">
+          <h1 class="fourteen wide column">Users of {{ site.siteName }}</h1>
+          <div class="two wide column right floated right aligned">
+            <button class="ui button icon" @click="deleteSite(site)">
+              <i class="trash icon"></i>
+            </button>
+          </div>
+        </div>
         <user-detail @updateUsers="updateUsers" ></user-detail>
         <div class="ui container grid">
           <div class="wide row">
@@ -69,6 +76,13 @@ export default class Users extends Vue {
     this.isLoading = true;
     this.users = await UsersStore.getUsers(this.$route.params.siteId);
     this.isLoading = false;
+  }
+
+  public async deleteSite(site: ISite) {
+    this.isLoading = true;
+    await SitesStore.deleteSite(site.id);
+    await SitesStore.getSites(true);
+    this.$router.push({ name: 'sites' });
   }
 }
 </script>
