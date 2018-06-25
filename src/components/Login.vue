@@ -19,7 +19,7 @@
           <label for="password">Password</label>
           <input v-model="password" type="password" name="password" id="password" autocomplete="off">
         </div>
-        <button class="ui button" type="submit">Envoyer</button>
+        <button class="ui right floated primary button" type="submit">Envoyer</button>
       </form>
     </div>
   </div>
@@ -35,8 +35,8 @@ import Vuex from 'vuex';
   components: {},
 })
 export default class Login extends Vue {
-  public login: string = 'antoine.savajols@gmail.com';
-  public password: string = 'Alshyra123';
+  public login: string = '';
+  public password: string = '';
   public error: string = '';
   constructor() {
     super();
