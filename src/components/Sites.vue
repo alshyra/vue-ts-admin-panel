@@ -1,30 +1,34 @@
 <template>
     <div class="users ui main container">
       <h1>Sites</h1>
-      <div v-if="isLoading"  class="ui active centered loader"></div>
-      <div v-if="!isLoading">
-          <div class="ui fluid icon input">
-            <input v-model="search" type="text" placeholder="Search a website name">
-            <i class="search icon"></i>
-          </div>
-          <div class="ui container grid">
-            <div class="wide row">
-                <div class="eight wide column">Name</div>
-                <div class="six wide column">Id</div>
-                <div class="two wide column">Action</div>
+      <transition name="fade">
+        <div v-if="isLoading" class="ui active centered loader"></div>
+      </transition>
+      <transition name="fade">
+        <div v-if="!isLoading">
+            <div class="ui fluid icon input">
+              <input v-model="search" type="text" placeholder="Search a website name">
+              <i class="search icon"></i>
             </div>
-            <div class="wide row alternback" v-for="site in searchedSite" :key="site.id">
-                <div class="eight wide column">{{site.siteName}}</div>
-                <div class="six wide column noWrap">{{site.id}}</div>
-                <button class="ui icon button" @click="goToUsers(site)">
-                  <i class="user plus icon"></i>
-                </button>
-                <button class="ui icon button" @click="deleteSite(site)">
-                  <i class="trash icon"></i>
-                </button>
+            <div class="ui container grid">
+              <div class="wide row">
+                  <div class="eight wide column">Name</div>
+                  <div class="six wide column">Id</div>
+                  <div class="two wide column">Action</div>
+              </div>
+              <div class="wide row alternback" v-for="site in searchedSite" :key="site.id">
+                  <div class="eight wide column">{{site.siteName}}</div>
+                  <div class="six wide column noWrap">{{site.id}}</div>
+                  <button class="ui icon button" @click="goToUsers(site)">
+                    <i class="user plus icon"></i>
+                  </button>
+                  <button class="ui icon button" @click="deleteSite(site)">
+                    <i class="trash icon"></i>
+                  </button>
+              </div>
             </div>
-          </div>
-      </div>
+        </div>
+      </transition>
       <modal-confirm @close="close" bindedClass="trash" :content="confirmMessage" :active="showModal"></modal-confirm>
     </div>
 </template>
@@ -33,6 +37,14 @@
 <style lang="scss">
 .noWrap {
   white-space: nowrap;
+}
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+  transform: translateX(100px);
 }
 </style>
 

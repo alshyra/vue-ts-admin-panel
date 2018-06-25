@@ -1,6 +1,6 @@
 <template>
     <div>
-        <transition name="fade">
+        <transition name="fade" mode="out-in">
             <div class="ui centered inline loader active" v-if="isLoading"></div>
             <form class="ui form" v-if="!isLoading" @submit.prevent="saveUser">
                 <div class="inline fields">
