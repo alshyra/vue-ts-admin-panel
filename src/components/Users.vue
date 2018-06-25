@@ -6,9 +6,14 @@
     <transition name="fade">
       <div v-if="!isLoading">
         <div class="ui large menu top fixed inverted">
+          <div class="item">
+            <button class="ui inverted action button icon" @click="back">
+              <i class="arrow left icon"></i>
+            </button>
+          </div>
           <div class="header item">Users of {{ site.siteName }}</div>
           <div class="right item">
-            <button class="ui action button icon" @click="deleteSite(site)">
+            <button class="ui inverted action button icon" @click="deleteSite(site)">
               <i class="trash icon"></i>
             </button>
           </div>
@@ -63,6 +68,11 @@ export default class Users extends Vue {
     siteName: '',
     id: '',
   };
+
+  public back(){
+    this.$router.back();
+  }
+
   public async created() {
     this.users = await UsersStore.getUsers(this.$route.params.siteId);
     this.isLoading = false;
