@@ -18,15 +18,17 @@
               <div class="ui relaxed divided list">
                 <div class="item" v-for="site in searchedSite" :key="site.id">
                     <div class="right floated content">
-                      <button class="ui icon button green" @click="goToUsers(site)">
-                        <i class="user plus icon"></i>
-                      </button>
-                      <button class="ui icon button primary" @click="collectActive(site,site.collectActive)">
-                        <i class="icon" :class="iscollectActiveIcon(site)"></i>
-                      </button>
-                      <button class="ui icon button red" @click="deleteSite(site)">
-                        <i class="trash icon"></i>
-                      </button>
+                      <div class="ui icon buttons">
+                        <button class="ui icon button green" @click="goToUsers(site)">
+                          <i class="user plus icon"></i>
+                        </button>
+                        <button class="ui icon button primary" @click="collectActive(site,site.collectActive)">
+                          <i class="icon" :class="iscollectActiveIcon(site)"></i>
+                        </button>
+                        <button class="ui icon button red" @click="deleteSite(site)">
+                          <i class="trash icon"></i>
+                        </button>
+                      </div>
                     </div>
                     <div class="content">
                       <div class="header site-name-truncated">{{site.siteName}}</div>

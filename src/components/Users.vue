@@ -14,7 +14,10 @@
           </div>
           <div class="header item">Users of {{ site.siteName }}</div>
           <div class="right item">
-            <button class="ui inverted action button icon red" @click="deleteSite(site)">
+            <button class="ui action inverted button left attached icon blue" @click="collectActive(site, site.collectActive)">
+              <i class="icon inverted blue" :class="iscollectActiveIcon(site)"></i>
+            </button>
+            <button class="ui inverted action button right attached icon red" @click="deleteSite(site)">
               <i class="trash icon inverted red"></i>
             </button>
           </div>
@@ -74,7 +77,11 @@ export default class Users extends Vue {
   public back() {
     this.$router.back();
   }
-
+  
+  public iscollectActiveIcon(site: ISite) {
+    return site.collectActive === true ? 'stop' : 'play';
+  }
+  
   public async created() {
     this.users = await UsersStore.getUsers(this.$route.params.siteId);
     this.isLoading = false;
@@ -93,6 +100,15 @@ export default class Users extends Vue {
     await SitesStore.deleteSite(site.id);
     await SitesStore.getSites(true);
     this.$router.push({ name: 'sites' });
+  }
+  public async collectActive(site: ISite, collectActive: boolean) {
+    if (collectActive != null) {
+      this.isLoading = true;
+      await SitesStore.collectActive(site.id, !collectActive);
+      site.collectActive = !collectActive;
+      this.isLoading = false;
+      SitesStore.getSites(true);
+    }
   }
 }
 </script>
