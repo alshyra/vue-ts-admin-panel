@@ -18,15 +18,18 @@
               <div class="ui relaxed divided list">
                 <div class="item" v-for="site in searchedSite" :key="site.id">
                     <div class="right floated content">
-                      <button class="ui icon button left attached green" @click="goToUsers(site)">
+                      <button class="ui icon button green" @click="goToUsers(site)">
                         <i class="user plus icon"></i>
                       </button>
-                      <button class="ui icon button right attached red" @click="deleteSite(site)">
+                      <button class="ui icon button primary" @click="collectActive(site,site.collectActive)">
+                        <i class="icon" :class="iscollectActiveIcon(site)"></i>
+                      </button>
+                      <button class="ui icon button red" @click="deleteSite(site)">
                         <i class="trash icon"></i>
                       </button>
                     </div>
                     <div class="content">
-                      <div class="header">{{site.siteName}}</div>
+                      <div class="header site-name-truncated">{{site.siteName}}</div>
                       <div>{{site.id}}</div>
                     </div>
                 </div>
@@ -50,6 +53,12 @@
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
   opacity: 0;
 }
+
+.site-name-truncated {
+  text-overflow: ellipsis;
+  width: 50%;
+  overflow: hidden;
+}
 </style>
 
 
@@ -66,6 +75,7 @@ export default class Sites extends Vue {
   public siteToDelete: ISite = {
     siteName: '',
     id: '',
+    collectActive: false,
   };
   public isLoading = true;
   public showModal = false;
@@ -97,11 +107,24 @@ export default class Sites extends Vue {
     }
   }
 
+  public async collectActive(site: ISite, collectActive: boolean) {
+    if (collectActive != null) {
+      this.isLoading = true;
+      await SitesStore.collectActive(site.id, !collectActive);
+      site.collectActive = !collectActive;
+      this.isLoading = false;
+    }
+  }
+
   public async getSites(forceRefresh: boolean = false) {
     this.isLoading = true;
     this.sites = await SitesStore.getSites(forceRefresh);
     this.sites = this.sites.sort((a: ISite, b: ISite) => (a.siteName > b.siteName ? 1 : -1));
     this.isLoading = false;
+  }
+
+  public iscollectActiveIcon(site: ISite) {
+    return site.collectActive === true ? 'stop' : 'play';
   }
 
   get searchedSite() {

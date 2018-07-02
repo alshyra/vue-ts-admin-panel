@@ -4,6 +4,7 @@ import Axios, { AxiosResponse } from 'axios';
 export interface ISite {
   siteName: string;
   id: string;
+  collectActive: boolean;
 }
 
 class SitesStore {
@@ -14,8 +15,15 @@ class SitesStore {
     this.site = {
       id: '',
       siteName: '',
+      collectActive: false,
     };
   }
+  public async collectActive(siteId: string, collectActive: boolean) {
+    const activateUrlParam = collectActive ? 'activate' : 'desactivate';
+    await Axios.post(`${EnvStore.rootUrl()}/sites/collect/${activateUrlParam}?index=${siteId}`, {});
+    return true;
+  }
+
   public async getSites(forceRefresh?: boolean) {
     if (this.sites && this.sites.length && !forceRefresh) {
       return Promise.resolve(this.sites);

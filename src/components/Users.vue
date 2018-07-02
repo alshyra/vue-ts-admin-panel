@@ -68,6 +68,7 @@ export default class Users extends Vue {
   public site: ISite = {
     siteName: '',
     id: '',
+    collectActive: false,
   };
 
   public back() {
